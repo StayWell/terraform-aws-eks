@@ -38,12 +38,12 @@ resource "aws_iam_role" "control" {
 
 resource "aws_iam_role_policy_attachment" "cluster" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = "${aws_iam_role.eks_control.name}"
+  role       = "${aws_iam_role.control.name}"
 }
 
 resource "aws_iam_role_policy_attachment" "service" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = "${aws_iam_role.eks_control.name}"
+  role       = "${aws_iam_role.control.name}"
 }
 
 # Security Group ################################
@@ -210,17 +210,17 @@ resource "aws_iam_role" "worker" {
 
 resource "aws_iam_role_policy_attachment" "node" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = "${aws_iam_role.eks_worker.name}"
+  role       = "${aws_iam_role.worker.name}"
 }
 
 resource "aws_iam_role_policy_attachment" "cni" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = "${aws_iam_role.eks_worker.name}"
+  role       = "${aws_iam_role.worker.name}"
 }
 
 resource "aws_iam_role_policy_attachment" "ecr" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = "${aws_iam_role.eks_worker.name}"
+  role       = "${aws_iam_role.worker.name}"
 }
 
 resource "aws_iam_instance_profile" "this" {
@@ -250,7 +250,7 @@ resource "aws_security_group_rule" "worker_ingress_self" {
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  security_group_id = "${aws_security_group.eks_worker.id}"
+  security_group_id = "${aws_security_group.worker.id}"
   self              = true
 }
 
@@ -260,8 +260,8 @@ resource "aws_security_group_rule" "worker_ingress_control" {
   from_port                = 0
   to_port                  = 0
   protocol                 = "-1"
-  security_group_id        = "${aws_security_group.eks_worker.id}"
-  source_security_group_id = "${aws_security_group.eks_control.id}"
+  security_group_id        = "${aws_security_group.worker.id}"
+  source_security_group_id = "${aws_security_group.control.id}"
 }
 
 resource "aws_security_group_rule" "worker_egress_all" {
@@ -270,6 +270,6 @@ resource "aws_security_group_rule" "worker_egress_all" {
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  security_group_id = "${aws_security_group.eks_worker.id}"
+  security_group_id = "${aws_security_group.worker.id}"
   cidr_blocks       = ["0.0.0.0/0"]
 }
