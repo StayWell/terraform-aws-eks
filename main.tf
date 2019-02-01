@@ -162,7 +162,6 @@ resource "aws_autoscaling_group" "linux" {
   min_size            = "${var.linux_node_count}"
   max_size            = "${var.linux_node_count}"
   vpc_zone_identifier = ["${var.subnet_ids}"]
-  tags                = "${merge(map("Name", "${var.env}-eks-linux"), var.tags)}"
 
   launch_template = {
     id      = "${aws_launch_template.linux.id}"
