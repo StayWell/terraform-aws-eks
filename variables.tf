@@ -23,6 +23,11 @@ variable "kubernetes_version" {
   default     = ""
 }
 
+variable "trusted_ami_account" {
+  description = "(optional) ID of the account you trust AMIs from - defaulted to Amazon owned service account"
+  default     = "602401143452"
+}
+
 variable "linux_instance_type" {
   description = "(optional) Linux worker node instance type"
   default     = "m5.large"

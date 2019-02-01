@@ -83,7 +83,7 @@ resource "aws_security_group_rule" "control_egress_worker" {
 #################################################
 
 data "aws_ami" "linux" {
-  owners      = ["amazon"]
+  owners      = ["${var.trusted_ami_account}"]
   most_recent = true
 
   filter {
