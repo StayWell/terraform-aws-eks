@@ -88,9 +88,11 @@ data "aws_ami" "linux" {
 
   filter {
     name   = "name"
-    values = ["${var.linux_ami_pattern}"]
+    values = ["${var.linux_ami_prefix}-${var.kubernetes_version}*"]
   }
 }
+
+data "aws_region" "this" {}
 
 locals {
   linux_userdata = <<EOF
@@ -103,7 +105,7 @@ echo "${aws_eks_cluster.this.certificate_authority.0.data}" | base64 -d >  $CA_C
 INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 sed -i s,MASTER_ENDPOINT,${aws_eks_cluster.this.endpoint},g /var/lib/kubelet/kubeconfig
 sed -i s,CLUSTER_NAME,${aws_eks_cluster.this.id},g /var/lib/kubelet/kubeconfig
-sed -i s,REGION,${var.region},g /etc/systemd/system/kubelet.service
+sed -i s,REGION,${data.aws_region.this.name},g /etc/systemd/system/kubelet.service
 sed -i s,MAX_PODS,20,g /etc/systemd/system/kubelet.service
 sed -i s,MASTER_ENDPOINT,${aws_eks_cluster.this.endpoint},g /etc/systemd/system/kubelet.service
 sed -i s,INTERNAL_IP,$INTERNAL_IP,g /etc/systemd/system/kubelet.service
@@ -127,7 +129,7 @@ resource "aws_launch_template" "linux" {
   tags                   = "${merge(map("Name", "${var.env}-eks-linux"), var.tags)}"
 
   block_device_mappings {
-    device_name = "${var.linux_block_device}"
+    device_name = "${data.aws_ami.linux.root_device_name}"
 
     ebs {
       volume_size = "${var.linux_disk_size}"

@@ -28,19 +28,14 @@ variable "linux_instance_type" {
   default     = "m5.large"
 }
 
-variable "linux_ami_pattern" {
+variable "linux_ami_prefix" {
   description = "(optional) String used to search for linux worker node AMI"
-  default     = "eks-worker-*"
-}
-
-variable "linux_block_device" {
-  description = "(optional) Name of the block device that the launch template will size for linux worker nodes"
-  default     = "/dev/xvdcz"
+  default     = "amazon-eks-node"
 }
 
 variable "linux_disk_size" {
   description = "(optional) Size of the root volume for linux worker nodes"
-  default     = "22"
+  default     = "20"
 }
 
 variable "linux_node_count" {
