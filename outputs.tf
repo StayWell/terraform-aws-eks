@@ -23,6 +23,11 @@ output "control_sg_id" {
   value       = "${aws_security_group.control.id}"
 }
 
+output "worker_iam_role" {
+  description = "IAM role for the EKS worker nodes"
+  value       = "${aws_iam_role.worker.arn}"
+}
+
 locals {
   worker_config_map = <<EOF
 apiVersion: v1
