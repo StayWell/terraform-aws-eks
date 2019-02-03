@@ -47,3 +47,8 @@ variable "linux_node_count" {
   description = "(optional) Static amount of linux worker nodes"
   default     = "2"
 }
+
+variable "linux_target_group_arns" {
+  description = "(optional) https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#target_group_arns"
+  default     = []
+}
