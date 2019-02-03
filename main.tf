@@ -8,7 +8,7 @@ resource "aws_eks_cluster" "this" {
   version  = "${var.kubernetes_version}"
 
   vpc_config {
-    subnet_ids         = ["${var.subnet_ids}"]
+    subnet_ids         = ["${var.private_subnet_ids}", "${var.public_subnet_ids}"]
     security_group_ids = ["${aws_security_group.control.id}"]
   }
 }
@@ -146,7 +146,7 @@ resource "aws_autoscaling_group" "linux" {
   name_prefix         = "${var.env}-eks-linux-"
   min_size            = "${var.linux_node_count}"
   max_size            = "${var.linux_node_count}"
-  vpc_zone_identifier = ["${var.subnet_ids}"]
+  vpc_zone_identifier = ["${var.private_subnet_ids}"]
   target_group_arns   = ["${var.linux_target_group_arns}"]
 
   launch_template = {

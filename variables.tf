@@ -3,8 +3,13 @@ variable "vpc_id" {
   default     = ""
 }
 
-variable "subnet_ids" {
+variable "private_subnet_ids" {
   description = "(required) IDs of the subnets to which the EKS worker nodes will be deployed"
+  default     = []
+}
+
+variable "public_subnet_ids" {
+  description = "(required) IDs of the subnets to which the EKS load balancers will be deployed"
   default     = []
 }
 
