@@ -96,9 +96,8 @@ data "aws_region" "this" {}
 
 locals {
   linux_userdata = <<EOF
-#!/bin/bash
-set -o xtrace
-/etc/eks/bootstrap.sh ${aws_eks_cluster.this.name}
+#!/bin/bash -ex
+source /etc/eks/bootstrap.sh ${aws_eks_cluster.this.name}
 EOF
 }
 
