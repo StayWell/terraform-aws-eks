@@ -134,7 +134,7 @@ resource "aws_launch_template" "linux" {
 
   tag_specifications {
     resource_type = "instance"
-    tags          = "${merge(map("Name", "${var.env}-eks-linux"), var.tags)}"
+    tags          = "${merge(map("Name", "${var.env}-eks-linux", "kubernetes.io/cluster/${aws_eks_cluster.this.id}", "owned"), var.tags)}"
   }
 
   lifecycle {
