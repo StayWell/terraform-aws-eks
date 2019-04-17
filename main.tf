@@ -88,7 +88,7 @@ data "aws_ami" "linux" {
 
   filter {
     name   = "name"
-    values = ["${var.linux_ami_prefix}-${var.kubernetes_version}*"]
+    values = ["${var.linux_ami_name}"]
   }
 }
 

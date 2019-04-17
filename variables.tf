@@ -38,9 +38,9 @@ variable "linux_instance_type" {
   default     = "m5.large"
 }
 
-variable "linux_ami_prefix" {
+variable "linux_ami_name" {
   description = "(optional) String used to search for linux worker node AMI"
-  default     = "amazon-eks-node"
+  default     = "amazon-eks-node*"
 }
 
 variable "linux_disk_size" {
