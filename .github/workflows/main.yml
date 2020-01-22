@@ -4,7 +4,9 @@ on: [push]
 
 jobs:
   main:
-    container: hashicorp/terraform:0.12.19
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:0.12.19
     steps:
     - name: Terraform Init
       run: terraform init
