@@ -1,7 +1,7 @@
 module "this" {
   source             = "../"
-  public_subnet_ids  = aws_subnet.public.id
-  private_subnet_ids = aws_subnet.private.id
+  public_subnet_ids  = ["${aws_subnet.public.id}"]
+  private_subnet_ids = ["${aws_subnet.private.id}"]
 }
 
 data "aws_availability_zones" "this" {
