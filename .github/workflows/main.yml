@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Terraform Init
-        run: terraform init
+        run: terraform init test
       - name: Terraform Validate
-        run: terraform validate
+        run: terraform validate test
       - name: Terraform Plan
         run: terraform plan test
