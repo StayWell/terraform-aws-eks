@@ -23,7 +23,7 @@ resource "aws_subnet" "public" {
   }
 }
 
-resource "aws_subnet" "public" {
+resource "aws_subnet" "private" {
   count             = 2
   availability_zone = data.aws_availability_zones.this.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, count.index)
