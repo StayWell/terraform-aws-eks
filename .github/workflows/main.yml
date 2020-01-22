@@ -8,10 +8,8 @@ jobs:
     steps:
     - name: Install Terraform
       run: |
-        terraform -version
         sudo wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip
         sudo unzip -o ./terraform_0.12.19_linux_amd64.zip -d /usr/local/bin
-        terraform –version
     - name: Terraform Init
       run: terraform init
     - name: Terraform Validate
