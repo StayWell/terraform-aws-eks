@@ -13,7 +13,7 @@ resource "aws_vpc" "this" {
 }
 
 resource "aws_subnet" "public" {
-  count             = 2
+  count             = 1
   availability_zone = data.aws_availability_zones.this.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, count.index)
   vpc_id            = aws_vpc.this.id
@@ -24,7 +24,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  count             = 2
+  count             = 1
   availability_zone = data.aws_availability_zones.this.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, count.index)
   vpc_id            = aws_vpc.this.id
