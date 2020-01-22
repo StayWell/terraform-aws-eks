@@ -4,7 +4,7 @@ resource "aws_eks_cluster" "this" {
   version  = var.kubernetes_version
 
   vpc_config {
-    subnet_ids = ["${var.private_subnet_ids}", "${var.public_subnet_ids}"]
+    subnet_ids = var.private_subnet_ids
   }
 
   depends_on = [
