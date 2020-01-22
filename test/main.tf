@@ -18,7 +18,7 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.this.id
 
   tags = {
-    "kubernetes.io/cluster/${module.this.cluster_id}" = "shared"
+    "kubernetes.io/cluster/default" = "shared"
   }
 }
 
@@ -28,6 +28,6 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.this.id
 
   tags = {
-    "kubernetes.io/cluster/${module.this.cluster_id}" = "shared"
+    "kubernetes.io/cluster/default" = "shared"
   }
 }
