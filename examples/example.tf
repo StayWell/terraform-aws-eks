@@ -1,5 +1,5 @@
 module "this" {
-  source     = "github.com/jjno91/terraform-aws-eks?ref=master"
-  vpc_id     = "your-vpc"
+  source     = "StayWell/eks/aws"
+  version    = "1.0.0"
   subnet_ids = ["your", "subnets"]
 }
