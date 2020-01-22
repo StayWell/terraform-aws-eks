@@ -1,7 +1,7 @@
 module "this" {
   source             = "../"
-  public_subnet_ids  = aws_subnet.public[*].id
-  private_subnet_ids = aws_subnet.private[*].id
+  public_subnet_ids  = aws_subnet.public.id
+  private_subnet_ids = aws_subnet.private.id
 }
 
 data "aws_availability_zones" "this" {
@@ -13,9 +13,8 @@ resource "aws_vpc" "this" {
 }
 
 resource "aws_subnet" "public" {
-  count             = 1
-  availability_zone = data.aws_availability_zones.this.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, count.index)
+  availability_zone = data.aws_availability_zones.this.names[0]
+  cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, 0)
   vpc_id            = aws_vpc.this.id
 
   tags = {
@@ -24,9 +23,8 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  count             = 1
-  availability_zone = data.aws_availability_zones.this.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, count.index)
+  availability_zone = data.aws_availability_zones.this.names[1]
+  cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 8, 1)
   vpc_id            = aws_vpc.this.id
 
   tags = {
