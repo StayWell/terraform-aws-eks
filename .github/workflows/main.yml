@@ -4,17 +4,11 @@ on: [push]
 
 jobs:
   main:
-    runs-on: ubuntu-18.04
+    container: hashicorp/terraform:0.12.19
     steps:
-    - name: Install Terraform
-      run: |
-        sudo wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip
-        sudo unzip -o ./terraform_0.12.19_linux_amd64.zip -d /usr/local/bin
     - name: Terraform Init
       run: terraform init
     - name: Terraform Validate
       run: terraform validate
     - name: Terraform Plan
-      run: |
-        ls
-        pwd
+      run: terraform plan
