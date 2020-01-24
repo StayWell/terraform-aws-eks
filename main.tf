@@ -1,7 +1,9 @@
 resource "aws_eks_cluster" "this" {
-  name     = var.id
-  role_arn = aws_iam_role.cluster.arn
-  version  = var.kubernetes_version
+  name                      = var.id
+  role_arn                  = aws_iam_role.cluster.arn
+  version                   = var.kubernetes_version
+  enabled_cluster_log_types = var.enabled_cluster_log_types
+  tags                      = var.tags
 
   vpc_config {
     subnet_ids = var.private_subnet_ids
@@ -10,11 +12,18 @@ resource "aws_eks_cluster" "this" {
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.AmazonEKSServicePolicy,
+    aws_cloudwatch_log_group.this,
   ]
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  name = "/aws/eks/${var.id}/cluster"
+  tags = var.tags
 }
 
 resource "aws_iam_role" "cluster" {
   name = var.id
+  tags = var.tags
 
   assume_role_policy = <<POLICY
 {
@@ -47,6 +56,7 @@ resource "aws_eks_node_group" "this" {
   node_group_name = var.id
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = var.private_subnet_ids
+  tags            = var.tags
 
   scaling_config {
     desired_size = var.desired_size
@@ -63,6 +73,7 @@ resource "aws_eks_node_group" "this" {
 
 resource "aws_iam_role" "node" {
   name = var.id
+  tags = var.tags
 
   assume_role_policy = jsonencode({
     Statement = [{

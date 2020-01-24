@@ -42,3 +42,8 @@ variable "min_size" {
   description = "(Optional) https://www.terraform.io/docs/providers/aws/r/eks_node_group.html#min_size"
   default     = "1"
 }
+
+variable "enabled_cluster_log_types" {
+  description = "(Optional) https://www.terraform.io/docs/providers/aws/r/eks_cluster.html#enabled_cluster_log_types"
+  default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+}
