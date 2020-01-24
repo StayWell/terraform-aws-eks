@@ -47,3 +47,8 @@ variable "enabled_cluster_log_types" {
   description = "(Optional) https://www.terraform.io/docs/providers/aws/r/eks_cluster.html#enabled_cluster_log_types"
   default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 }
+
+variable "log_retention_in_days" {
+  description = "(Optional) https://www.terraform.io/docs/providers/aws/r/cloudwatch_log_group.html#retention_in_days"
+  default     = "90"
+}
