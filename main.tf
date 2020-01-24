@@ -22,7 +22,7 @@ resource "aws_cloudwatch_log_group" "this" {
 }
 
 resource "aws_iam_role" "cluster" {
-  name = var.id
+  name = "${var.id}-cluster"
   tags = var.tags
 
   assume_role_policy = <<POLICY
@@ -72,7 +72,7 @@ resource "aws_eks_node_group" "this" {
 }
 
 resource "aws_iam_role" "node" {
-  name = var.id
+  name = "${var.id}-node"
   tags = var.tags
 
   assume_role_policy = jsonencode({
