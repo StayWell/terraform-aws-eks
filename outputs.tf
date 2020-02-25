@@ -17,3 +17,13 @@ output "node_role_arn" {
   description = "https://www.terraform.io/docs/providers/aws/r/eks_node_group.html#node_role_arn"
   value       = aws_iam_role.node.arn
 }
+
+output "oidc_url" {
+  description = "https://www.terraform.io/docs/providers/aws/r/iam_openid_connect_provider.html#url"
+  value       = aws_iam_openid_connect_provider.this.url
+}
+
+output "oidc_arn" {
+  description = "https://www.terraform.io/docs/providers/aws/r/iam_openid_connect_provider.html#arn"
+  value       = aws_iam_openid_connect_provider.this.arn
+}
