@@ -52,3 +52,8 @@ variable "log_retention_in_days" {
   description = "(Optional) https://www.terraform.io/docs/providers/aws/r/cloudwatch_log_group.html#retention_in_days"
   default     = "90"
 }
+
+variable "oidc_thumbprint" {
+  description = "(Optional) https://www.terraform.io/docs/providers/aws/r/iam_openid_connect_provider.html#thumbprint_list"
+  default     = ""
+}
