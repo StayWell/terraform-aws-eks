@@ -57,3 +57,8 @@ variable "oidc_thumbprint" {
   description = "(Optional) https://www.terraform.io/docs/providers/aws/r/iam_openid_connect_provider.html#thumbprint_list"
   default     = ""
 }
+
+variable "instance_types" {
+  description = "(Optional) https://www.terraform.io/docs/providers/aws/r/eks_node_group.html#instance_types"
+  default     = ["t3.medium"]
+}
