@@ -43,6 +43,11 @@ variable "min_size" {
   default     = "1"
 }
 
+variable "disk_size" {
+  description = "(Optional) https://www.terraform.io/docs/providers/aws/r/eks_node_group.html#disk_size"
+  default     = "100" # we ran into various eviction issues at the default of 20
+}
+
 variable "enabled_cluster_log_types" {
   description = "(Optional) https://www.terraform.io/docs/providers/aws/r/eks_cluster.html#enabled_cluster_log_types"
   default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
